@@ -9,11 +9,13 @@ import Server from './server.jsx';
 import Collaborator from './collaborator.jsx';
 import HistoryList from './historyList.jsx';
 import Document from './document.jsx';
+import Login from './Login.jsx';
 
 
 ReactDOM.render((
   <Router history={hashHistory}>
     <Route path="/" component={MainComponent}>
+      <Route path="/loginusername" component={Login} />
       <Route path="/webhook" component={WebHook} />
       <Route path="/server" component={Server} />
       // collaborator

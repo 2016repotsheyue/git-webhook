@@ -6,12 +6,10 @@
     "lint:py": "flake8",
     "test": "npm run lint:js && npm run lint:py",
     "js": "webpack --config webpack.config.js",
-
     "dev_js": "webpack --config webpack.config.js --watch",
     "dev_py": "python run_webhook.py",
     "clean:celery": "rimraf celerybeat*",
     "celery": "npm run clean:celery && celery -A app.celeryInstance worker --loglevel=info",
-    
     "db": "python scripts.py rebuild_db"
   },
   "keywords": [],

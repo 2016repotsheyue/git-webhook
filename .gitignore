@@ -64,3 +64,4 @@ celerybeat*
 
 config.py
 git_webhook.db
+venv

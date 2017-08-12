@@ -32,11 +32,15 @@ const Index = React.createClass({
                   <i className="dashboard icon"></i>
                 </Link>
               ||
+              <p>
+              <Link to="/loginusername" className="ui huge primary button">Login with username</Link>
                 <a href="/login" className="ui huge primary button">
                   <i className="github alternate icon"></i> 
                   &nbsp;&nbsp; Login Github &nbsp;&nbsp;
                   <i className="github alternate icon"></i>
                 </a>
+
+              </p>
             }
           </div>
         </div>
