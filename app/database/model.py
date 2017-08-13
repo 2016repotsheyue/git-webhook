@@ -8,7 +8,7 @@ import datetime
 from app import SQLAlchemyDB as db, socketio
 from app.database.base import BaseMethod
 from app.utils import JsonUtil
-
+from passlib.apps import custom_app_context as pwd_context
 
 class User(db.Model, BaseMethod):
     '''user'''
@@ -16,7 +16,8 @@ class User(db.Model, BaseMethod):
     name = db.Column(db.String(32))
     location = db.Column(db.String(32))
     avatar = db.Column(db.String(128))
-
+    username = db.Column(db.String(32), index = True)
+    password_hash = db.Column(db.String(128))
     src = db.Column(db.String(4), default="gh")  # useless
     last_login = db.Column(db.DateTime, default=datetime.datetime.now)
 
@@ -29,6 +30,11 @@ class User(db.Model, BaseMethod):
         rst['src'] = self.src
         rst['last_login'] = self.last_login
         return rst
+    def hash_password(self, password):
+        self.password_hash = pwd_context.encrypt(password)
+
+    def verify_password(self, password):
+        return pwd_context.verify(password, self.password_hash)
 
 
 class Server(db.Model, BaseMethod):
