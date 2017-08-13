@@ -12,13 +12,14 @@ from passlib.apps import custom_app_context as pwd_context
 
 class User(db.Model, BaseMethod):
     '''user'''
-    id = db.Column(db.String(32), primary_key=True)
-    name = db.Column(db.String(32))
-    location = db.Column(db.String(32))
-    avatar = db.Column(db.String(128))
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(32), nullable=True)
+    location = db.Column(db.String(32), nullable=True)
+    avatar = db.Column(db.String(128), nullable=True)
     username = db.Column(db.String(32), index = True)
     password_hash = db.Column(db.String(128))
-    src = db.Column(db.String(4), default="gh")  # useless
+    email = db.Column(db.String(128), nullable=True)
+    src = db.Column(db.String(4), default="gh", nullable=True)  # useless
     last_login = db.Column(db.DateTime, default=datetime.datetime.now)
 
     def dict(self):
@@ -29,6 +30,8 @@ class User(db.Model, BaseMethod):
         rst['avatar'] = self.avatar
         rst['src'] = self.src
         rst['last_login'] = self.last_login
+        rst['email'] = self.email
+        rst['username'] = self.username
         return rst
     def hash_password(self, password):
         self.password_hash = pwd_context.encrypt(password)

@@ -19,7 +19,7 @@ const Header = React.createClass({
       )
     } 
     return (
-      <a href="/login" className="item">登录</a>
+      <Link to="/loginusername" className="item">登录</Link>
     )
   },
   render: function() {
@@ -36,7 +36,7 @@ const Header = React.createClass({
           
           <div className="right menu">
             <a href="#" className="item">
-              <img className="logo" width="32" height="32" src={loginUser.avatar} />
+              {loginUser.username}
             </a>
             {this.renderUserActionComp()}
           </div>

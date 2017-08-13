@@ -10,6 +10,7 @@ import Collaborator from './collaborator.jsx';
 import HistoryList from './historyList.jsx';
 import Document from './document.jsx';
 import Login from './Login.jsx';
+import Register from './Register.jsx';
 
 
 ReactDOM.render((
@@ -17,6 +18,7 @@ ReactDOM.render((
     <Route path="/" component={MainComponent}>
       <Route path="/loginusername" component={Login} />
       <Route path="/webhook" component={WebHook} />
+      <Route path="/register" component={Register} />
       <Route path="/server" component={Server} />
       // collaborator
       <Route path="/collaborator/:webhook_id" component={Collaborator} />

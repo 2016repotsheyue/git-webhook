@@ -1,27 +1,26 @@
 import React from 'react';
-import { Link } from 'react-router';
-import { hashHistory } from 'react-router';
 
 import OnFireMixin from './mixins/onFireMixin.jsx';
 import TipShowMixin from './mixins/tipShowMixin.jsx';
 import RequestsMixin from './mixins/xhrRequestsMixin.jsx';
 
-const Login = React.createClass({
-    __ONFIRE__: 'Login',
+const Register = React.createClass({
+    __ONFIRE__: 'Reginster',
     mixins: [RequestsMixin, OnFireMixin, TipShowMixin],  // 引入 mixin    
     getInitialState: function(){
         return {
             username: '',
             password: '',
-            loginBtn: '登录'
+            email: '',
+            registerBtn: '注册'
         }
     },
     render: function(){
-        const {loginBtn, username, password, loading} = this.state;
+        const {registerBtn, username, password, loading, email} = this.state;
         const loadingClass = loading ? 'loading' : '';
         return(
-            <div className="user-login">
-                <div className="ui medium header">登录</div>
+            <div className="user-register">
+                <div className="ui medium header">用户注册</div>
                 <form className="ui form">
                     <div className="field">
                         <label>用户名</label>
@@ -31,30 +30,29 @@ const Login = React.createClass({
                         <label>密码</label>
                         <input type="password" name="password" value={password} onChange={e=>{this.setState({password: e.target.value})}} placeholder="请输入密码" />
                     </div>
-                    <button className="ui primary button {loadingClass}" type="button" onClick={this.onClick.bind(this)}>{loginBtn}</button>
-                    <Link to="/register" style={{color: '#000'}}>注册</Link>
+                    <div className="field">
+                        <label>email</label>
+                        <input type="text" name="email" value={email} onChange={e=>{this.setState({email: e.target.value})}} placeholder="请输入邮箱" />
+                    </div>
+                    <button className={`ui primary button ${loadingClass}`} type="button" onClick={this.onClick.bind(this)}>{registerBtn}</button>
                 </form>
-
-                
             </div>
         );
     },
 
     onClick: function(){
-        const {username, password, loading} = this.state;
+        const {username, password, loading, email} = this.state;
         if(loading) return;
         this.setState({loading: true});
-        this.post('/api/login', {
+        this.post('/api/register', {
             username,
-            password
+            password,
+            email
         }, function(r){
             this.setState({loading: false})
             r = r.json();
-            console.log(r)
             if(r.success === 1){
-                this.showSuccess('登录成功')
-                hashHistory.push('/')
-                window.location.reload()
+                this.showSuccess('注册成功')
             }else{
                 this.showError(r.data)
             }
@@ -63,4 +61,4 @@ const Login = React.createClass({
     }
 });
 
-export default Login;
+export default Register;
